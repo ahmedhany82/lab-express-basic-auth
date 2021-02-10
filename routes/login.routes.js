@@ -1,8 +1,10 @@
 const router = require("express").Router();
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
+// const index = require('./index.routes');
 
-router.get("/login", (req, res, next) => {
+
+router.get("/login",  (req, res, next) => {
     res.render("login");
   });
   
@@ -27,5 +29,15 @@ router.post('/login', (req, res) => {
       })
 })
 
+
+router.get('/logout', (req, res) => {
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect('/');
+    }
+  })
+})
 
 module.exports = router;
