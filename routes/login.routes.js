@@ -1,8 +1,6 @@
 const router = require("express").Router();
 const User = require('../models/User.model');
 const bcrypt = require('bcrypt');
-// const index = require('./index.routes');
-
 
 router.get("/login",  (req, res, next) => {
     res.render("login");
