@@ -8,6 +8,10 @@ router.get("/login", (req, res, next) => {
   
 router.post('/login', (req, res) => {
     const { username, password } = req.body;
+    if ((username === '') || (password === '')) {
+        res.render('login', { message: 'A username and a password are required to login. They cannot be empty!' });
+        return
+    }
     User.findOne({ username: username })
       .then(userFromDB => {
         if (userFromDB === null) {
@@ -16,7 +20,7 @@ router.post('/login', (req, res) => {
         }
         if (bcrypt.compareSync(password, userFromDB.password)) {
           req.session.user = userFromDB;
-          res.redirect('/profile');
+          res.redirect('/main');
         } else {
           res.render('login', { message: 'Invalid credentials' });
         }
